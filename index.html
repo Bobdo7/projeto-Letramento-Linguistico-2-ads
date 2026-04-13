@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linguagem Interativa PRO</title>
+<style>
+body {font-family: Arial, sans-serif; background:#020617; color:#e2e8f0; margin:0;}
+header {background:#0f172a; padding:20px; text-align:center; font-size:26px; font-weight:bold;}
+nav {display:flex; justify-content:center; gap:10px; background:#020617; padding:10px;}
+nav button {background:#1e293b; color:#e2e8f0; border:none; padding:10px 15px; border-radius:8px; cursor:pointer;}
+.container {padding:20px; max-width:1100px; margin:auto;}
+.card {background:#0f172a; padding:20px; border-radius:12px; margin-bottom:20px;}
+.hidden {display:none;}
+button {background:#38bdf8; border:none; padding:10px 15px; border-radius:8px; cursor:pointer; margin-top:10px;}
+.quiz-option {display:block; margin:5px 0;}
+.progress {height:10px; background:#1e293b; border-radius:10px; overflow:hidden; margin-top:10px;}
+.progress-bar {height:10px; background:#38bdf8; width:0%;}
+</style>
+</head>
+<body>
+
+<header>Linguagem Interativa PRO</header>
+
+<nav>
+<button onclick="mostrar('home')">Início</button>
+<button onclick="mostrar('conteudo')">Conteúdos</button>
+<button onclick="mostrar('quiz')">Quiz</button>
+<button onclick="mostrar('detector')">Detector</button>
+</nav>
+
+<div class="container">
+
+<div id="home" class="card">
+<h2>Projeto</h2>
+<p>Aplicação interativa que une conceitos de linguagem com lógica de programação, permitindo aprendizado dinâmico através de testes e simulação de análise textual.</p>
+
+<div style="text-align:center; margin-top:15px;">
+<img src="img/denotacao1.png" width="300">
+</div>
+
+</div>
+
+<div id="conteudo" class="card hidden">
+<h2>Conteúdos Detalhados</h2>
+
+<p><b>Denotação (Semântica):</b> uso da palavra em seu sentido literal. Ex: "A porta está aberta."</p>
+<p><b>Conotação (Semântica):</b> uso figurado, simbólico. Ex: "Ele tem um coração de pedra."</p>
+
+<p><b>Sinonímia (Semântica):</b> palavras com significado semelhante. Ex: feliz/alegre.</p>
+<p><b>Antonímia (Semântica):</b> palavras com sentido oposto. Ex: claro/escuro.</p>
+
+<p><b>Polissemia (Semântica):</b> uma palavra com vários significados. Ex: "manga" (fruta ou roupa).</p>
+<p><b>Ambiguidade (Semântica/Sintaxe):</b> frase com mais de um sentido. Pode ocorrer pela estrutura da frase ou palavras. Ex: "Vi o homem com o binóculo."</p>
+
+<p><b>Parônimos (Semântica):</b> palavras parecidas na escrita e pronúncia, mas com significados diferentes. Ex: comprimento/cumprimento.</p>
+<p><b>Homônimos (Semântica):</b> palavras iguais na forma, mas com significados diferentes. Ex: manga.</p>
+
+<p><b>Hiperônimo (Semântica):</b> termo mais abrangente. Ex: animal.</p>
+<p><b>Hipônimo (Semântica):</b> termo mais específico. Ex: cachorro.</p>
+
+<p><b>Antítese (Figura de linguagem - Estilística):</b> oposição de ideias. Ex: "Estou feliz e triste."</p>
+
+<p><b>Pressuposição (Pragmática):</b> ideia implícita na frase. Ex: "Ele parou de fumar" (pressupõe que ele fumava).</p>
+
+<h3>Classificação Linguística</h3>
+<p>Esses conceitos fazem parte principalmente da <b>Semântica</b> (estudo do significado), mas também podem envolver:</p>
+<ul>
+<li><b>Sintaxe:</b> organização das palavras na frase (ex: ambiguidade estrutural)</li>
+<li><b>Pragmática:</b> interpretação baseada no contexto (ex: pressuposição)</li>
+<li><b>Estilística:</b> uso expressivo da linguagem (ex: antítese)</li>
+</ul>
+</div>
+
+<div id="quiz" class="card hidden">
+<h2>Quiz Avançado</h2>
+<div class="progress"><div class="progress-bar" id="barra"></div></div>
+<p id="pergunta"></p>
+<div id="opcoes"></div>
+<p id="feedback"></p>
+<p id="score"></p>
+</div>
+
+<div id="detector" class="card hidden">
+<h2>Detector Inteligente</h2>
+<input type="text" id="frase" placeholder="Digite uma frase...">
+<button onclick="analisar()">Analisar</button>
+<p id="resultado"></p>
+</div>
+
+</div>
+
+<script>
+function mostrar(id){
+ ['home','conteudo','quiz','detector'].forEach(sec=>{
+ document.getElementById(sec).classList.add('hidden');
+ });
+ document.getElementById(id).classList.remove('hidden');
+}
+
+const perguntas = [
+{q:"O banco estava cheio.", op:["Ambiguidade","Denotação"], r:0},
+{q:"Ela tem um coração de pedra.", op:["Conotação","Denotação"], r:0},
+{q:"Feliz é sinônimo de:", op:["Triste","Alegre"], r:1},
+{q:"Quente é antônimo de:", op:["Frio","Morno"], r:0},
+{q:"Manga pode ser fruta ou roupa.", op:["Polissemia","Sinonímia"], r:0},
+{q:"Animal → cachorro", op:["Hipônimo","Hiperônimo"], r:0},
+{q:"Claro/escuro é exemplo de:", op:["Antítese","Sinonímia"], r:0},
+{q:"Ele parou de fumar.", op:["Pressuposição","Denotação"], r:0},
+{q:"Comprimento e cumprimento são:", op:["Parônimos","Homônimos"], r:0},
+{q:"Manga (fruta/roupa)", op:["Homônimos","Antônimos"], r:0},
+{q:"Subir para cima é:", op:["Redundância","Antítese"], r:0},
+{q:"Ela está nas nuvens.", op:["Conotação","Denotação"], r:0}
+];
+
+let atual = 0;
+let pontos = 0;
+
+function carregar(){
+ let p = perguntas[atual];
+ document.getElementById('pergunta').innerText = p.q;
+ let opcoes = '';
+ p.op.forEach((o,i)=>{
+ opcoes += `<button class='quiz-option' onclick='responder(${i})'>${o}</button>`;
+ });
+ document.getElementById('opcoes').innerHTML = opcoes;
+ document.getElementById('barra').style.width = ((atual/perguntas.length)*100)+"%";
+}
+
+function responder(i){
+ let fb = document.getElementById('feedback');
+ if(i === perguntas[atual].r){ pontos++; fb.innerText = "Correto"; }
+ else { fb.innerText = "Errado"; }
+ setTimeout(()=>{
+ atual++;
+ if(atual < perguntas.length){ carregar(); fb.innerText=""; }
+ else{
+ document.getElementById('pergunta').innerText = "Fim do quiz";
+ document.getElementById('opcoes').innerHTML = "";
+ document.getElementById('score').innerText = "Pontuação: "+pontos;
+ document.getElementById('barra').style.width = "100%";
+ }
+ },800);
+}
+
+function analisar(){
+ let frase = document.getElementById('frase').value.toLowerCase();
+ let res = document.getElementById('resultado');
+ if(frase.includes('banco')||frase.includes('manga')){
+ res.innerText = 'Ambiguidade ou polissemia detectada.';
+ } else if(frase.includes('coração de pedra')||frase.includes('nas nuvens')){
+ res.innerText = 'Conotação detectada.';
+ } else {
+ res.innerText = 'Nenhum padrão identificado.';
+ }
+}
+
+carregar();
+</script>
+
+<footer style="text-align:center; padding:20px; background:#0f172a; margin-top:20px;">
+<p>Projeto desenvolvido por:</p>
+<p><b>Guilherme Vitor, Laryssa Thaune, Júlio Matheus, Evelyn Rodrigues e Abinadab Lucio</b></p>
+</footer>
+
+</body>
+</html>
